@@ -39,7 +39,6 @@ const handleFileSelect = (evt) => {
   
   var reader = new FileReader();
   reader.onload = (e) => {
-  
     $("#original").val(e.target.result);
   };
   reader.readAsText(files[0])
@@ -76,18 +75,25 @@ $(document).ready(() => {
     }
 
     /* Request AJAX para que se calcule la tabla */
-    XXXXXXXXXXXXXXXXXX XX XX X
-        XX XXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXX X XXXXXXXXXXXXXXX
-        XXXXXXXXXXXXX 
-          X XXXXXX XXXXXXXXXXXXXX XX 
-          XXXXXXXXXX
-          XXXXXX
-        XX
-   XXX
-   /* botones para rellenar el textarea */
-   XXXXXXXXXXXXXXXXXXXXXXXXX XXXXX XX X
-     XXXXXXXXXXX XX XX X XXXXXXXXXXXXXXXXXXXXXXXXXXX XXX
-   XXX
+    $("#parse").click( () => {
+        if (window.localStorage) 
+        {
+          localStorage.original = original.value;
+        }
+        console.log("Original value:"+original.value);
+        $.get("/csv", 
+          { input: original.value }, 
+          fillTable,
+          'json'
+        );
+        $("#input").css("float","left");
+        $("#input").css("margin-left","70px");
+    });
+    /* botones para rellenar el textarea */
+    /*dump --> vuelca el contenido del fichero y recibe como argumento el nombre del fichero.*/
+    $('button.example').each( (_,y) => {
+      $(y).click( () => { dump(`${$(y).text()}.txt`); });
+    });
 
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];

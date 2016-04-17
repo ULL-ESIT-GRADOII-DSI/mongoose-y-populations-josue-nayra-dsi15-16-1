@@ -1,6 +1,6 @@
 "use strict";
 
-const express = require('express');
+var express = require('express');
 const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');

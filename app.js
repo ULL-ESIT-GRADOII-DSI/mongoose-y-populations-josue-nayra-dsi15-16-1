@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 const calculate = require('./models/calculate.js');
 
 app.get('/', (request, response) => {     
-  console.log("Accediendo a index");
+  //console.log("Accediendo a index");
   response.render('index', {title: "Comma Separated Values (CSV) Analyzer with Ajax" , autor1: "Maria Nayra Rodriguez Perez", autor2: "Josue Toledo Castro"});
 });
 

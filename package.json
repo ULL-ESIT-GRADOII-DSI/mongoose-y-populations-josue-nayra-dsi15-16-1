@@ -2,7 +2,6 @@
   "name": "DSI_Practica8",
   "version": "1.0.0",
   "description": "Analizador de cadenas csv usando AJAX",
-  "main": "csv.js",
   "scripts": {
     "start": "node app.js",
     "test": "firefox tests/index.html"

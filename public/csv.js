@@ -25,23 +25,24 @@ const fillTable = (data) => {
 /* Volcar en la textarea de entrada 
  * #original el contenido del fichero fileName */
 const dump = (fileName) => {
-  XXXXXXXXXXXXXXX XXXXXXXX XXXXXX X
-      XXXXXXXXXXXXXXXXXXXXXXXXX
-  XXX
+  $.get(fileName, function (data) {
+      $("#original").val(data);
+  });
 };
  
 const handleFileSelect = (evt) => {
   evt.stopPropagation();
   evt.preventDefault();
 
- XXX XXXXX X XXXXXXXXXXXXXXXXX 
-
-  XXX XXXXXX X XXX XXXXXXXXXXXXX
-  XXXXXXXXXXXXX X XXX XX X
+  var files = evt.target.files; 
+  console.log("Files:"+files);
   
-    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  XX
-  XXXXXXXXXXXXXXXXXXXXXXXXXXX
+  var reader = new FileReader();
+  reader.onload = (e) => {
+  
+    $("#original").val(e.target.result);
+  };
+  reader.readAsText(files[0])
 }
 
 /* Drag and drop: el fichero arrastrado se vuelca en la textarea de entrada */
@@ -49,15 +50,17 @@ const handleDragFileSelect = (evt) => {
   evt.stopPropagation();
   evt.preventDefault();
 
-  XXX XXXXX X XXXXXXXXXXXXXXXXXXXXXXX XX XXXXXXXX XXXXXXX
+  var files = evt.dataTransfer.files; // FileList object.
 
-  XXX XXXXXX X XXX XXXXXXXXXXXXX
-  XXXXXXXXXXXXX X XXX XX X
+  var reader = new FileReader();
+  reader.onload = (e) => {
   
-    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    XXXXXXXXXXXXXXXXXXXXXXXXXXX X XXXXXXXX
-  XX
-  XXXXXXXXXXXXXXXXXXXXXXXXXXX
+    $("#original").val(e.target.result);
+    console.log("E.target.result:"+e.target.result);
+    
+    evt.target.style.background = "white";
+  };
+  reader.readAsText(files[0]);
 }
 
 const handleDragOver = (evt) => {

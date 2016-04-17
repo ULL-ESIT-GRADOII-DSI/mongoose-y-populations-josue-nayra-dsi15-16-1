@@ -1,43 +1,62 @@
   <div class="contenido_total">
     <div class="titulo_practica">
       <h1 align="center">
-        <font color="blue">Comma Separated Values (CSV) Analyzer with Ajax</font>
+        <%= title %>
       </h1>
-      <hr>
     </div>
     <div class="contenido">
-      <table class="center" id="input">
-        <tr><th>Escriba aquí una entrada CSV o bien</th></tr>
-        <tr><th>Arrastre un fichero CSV hasta la zona de entrada</th></tr>
+      <div class="row">
+      <table class="center" style="margin-top:0px"; id="input">
+        <tr><th><center>Escriba aquí una entrada CSV o bien<br>Arrastre un fichero CSV hasta la zona de entrada</center></th></tr>
         <tr>
           <th>
-            <textarea class = "drop_zone" autofocus="" cols = "80" rows = "5" id="original"></textarea>
-          </th>
-          <th>
-            <button type="button" id="parse"> Analizar!</button>
+            <textarea style="margin-left:5px;" class = "drop_zone" autofocus="" cols = "80" rows = "60" id="original"></textarea>
+            <br>
+            <button type="button" class="pull-right example" id="parse"> Analizar!</button>
           </th>
         </tr>
         <tr>
+        </tr>
+        <tr>
+          <th>
+          <div class="example">
+            Click para cargar ejemplos:
+            <button class ="example" type="button">Ejemplo 1</button>
+            <button class ="example" type="button">Ejemplo 2</button>
+            <button class ="example" type="button">Ejemplo 3</button>
+          </div>
+          </th>
         </tr>
         <tr>
           <th>
             <div class="example">
-              Click para cargar ejemplos:
-              <button class ="example" type="button">input</button>
-              <button class ="example" type="button">input2</button>
-              <button class ="example" type="button">input3</button>
+              Cargar archivo: 
+              <input style="float:right; margin-right:50px" type="file" class="inputfile" />
             </div>
           </th>
         </tr>
-        <tr>
-          <th>
-              Cargar archivo: 
-              <input type="file" class="inputfile" />
-          </th>
-        </tr>
       </table>
-
       <div class="output" id="finaltable">
       </div>
     </div>
+    
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="three columns">
+            <a id="repo1" href="https://github.com/ULL-ESIT-GRADOII-DSI/object-oriented-programming-in-js-josue-nayra-dsi15-16" target="blank">Repositorio en GitHub</a>
+          </div>
+          <div class="three columns">
+            <a id="josue" href="http://josuetc94.github.io/" target="blank"><%= autor1 %></a>
+          </div>
+          <div class="three columns">
+            <a id="nayra" href="http://alu0100406122.github.io/" target="blank"><%= autor2 %></a>
+          </div>
+          <div class="three columns">
+            <a id="campus" href="https://campusvirtual.ull.es/1516/course/view.php?id=144" target="blank">Asignatura</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
   </div>

@@ -112,5 +112,5 @@ a:hover
 }
 
 .output tr:nth-child(odd)    { background-color:#eee; }
-.output tr:nth-child(even)   { background-color:#00FF66; }
+.output tr:nth-child(even)   { background-color:#ECCEF5; }
 .error td{ background-color: red; }

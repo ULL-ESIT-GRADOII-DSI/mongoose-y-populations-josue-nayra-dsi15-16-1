@@ -4,6 +4,7 @@
   "description": "Analizador de cadenas csv usando AJAX",
   "main": "csv.js",
   "scripts": {
+    "start": "node app.js",
     "test": "firefox tests/index.html"
   },
   "repository": {
@@ -13,7 +14,7 @@
   "keywords": [
     "csv"
   ],
-  "author": "Maria Nayra Rodriguez Perez y Josue Toledo Castro."
+  "author": "Maria Nayra Rodriguez Perez y Josue Toledo Castro.",
   "contributors": [],
   "license": "ISC",
   "bugs": {

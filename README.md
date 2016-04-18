@@ -1,4 +1,7 @@
-# Práctica 2: Comma separated values (CSV) with AJAX
+#Práctica 8. Comma Separated Values
+
+## Desarrollo de Sistemas Informáticos. 
+##ETSII ULL Grado de Informática.
 
 ## jQuery.get( url [, data ] [, success ] [, dataType ] )
 * url
@@ -37,4 +40,31 @@ The success callback function is passed the returned data, which will be an XML 
 
 # Heroku 
 https://cvsajax.herokuapp.com/
+
+
+### Enlace al campus de la asignatura
+
+* [Desarrollo de Sistemas Informáticos](https://campusvirtual.ull.es/my/)
+
+
+### Repositorios en github.io
+
+* [Repositorio de la práctica en la organización](https://github.com/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-josue-nayra-dsi15-16-1)
+ 
+
+### Despliegue de la práctica
+
+* [Comma Separated]()
+
+
+### Despliegue de la práctica en Heroku
+
+* [Heroku]()
+
+
+### AUTORES: 
+### Páginas personales de gh-pages:
+
+* [Josué Toledo Castro](http://josuetc94.github.io/)
+* [María Nayra Rodríguez Pérez](http://alu0100406122.github.io/)
 

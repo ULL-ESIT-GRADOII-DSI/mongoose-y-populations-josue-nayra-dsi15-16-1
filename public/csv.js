@@ -90,7 +90,7 @@ $(document).ready(() => {
         $("#input").css("margin-left","70px");
     });
     /* botones para rellenar el textarea */
-    /*dump --> vuelca el contenido del fichero y recibe como argumento el nombre del fichero.*/
+    /*dump --> vuelca el contenido del fichero y recibe como argumento el nombre del fichero*/
     $('button.example').each( (_,y) => {
       $(y).click( () => { dump(`${$(y).text()}.txt`); });
     });

@@ -3,43 +3,21 @@
 ## Desarrollo de Sistemas Informáticos. 
 ##ETSII ULL Grado de Informática.
 
-## jQuery.get( url [, data ] [, success ] [, dataType ] )
-* url
-  * Type: String
-  * A string containing the URL to which the request is sent.
-* data
-  * Type: PlainObject or String
-  * A plain object or string that is sent to the server with the request.
-* success
-  * Type: Function( PlainObject data, String textStatus, jqXHR jqXHR )
-  * A callback function that is executed if the request succeeds. 
-    Required if `dataType` is provided, but you can use `null` or `jQuery.noop` as a placeholder.
-* dataType
-  * Type: String
-  * The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
 
-## jQuery.get( [settings ] )
-* settings
-  * Type: PlainObject
-  * A set of key/value pairs that configure the Ajax request. 
-  * All properties except for `url` are optional. 
-  * A default can be set for any option with `$.ajaxSetup()`.
+##Requisitos:
 
-This is a shorthand Ajax function, which is equivalent to:
+* Practicar un request AJAX usando jQuery: El navegador/cliente lee la cadena con los datos de entrada y se los envía usando AJAX al servidor, el cual calcula y devuelve en JSON la tabla (el array de arrays) que finalmente es insertada en la página por el cliente/navegador.
+* Aisle el cálculo de la tabla en un modulo Node.js
+* El volcado de la salida en el cliente debe hacerse usando underscore evitando concatenación de cadenas
+* Utilizar tantas características de ECMA6 como sea posible.
+* Añadir botones/enlaces/menu de selección que permitan cargar un fichero específico de una lista de ficheros en la texarea de entrada como en el ejemplo en crguezl/expressloadfileontotextarea
+* Añadir una zona de Drag-and-Drop a la que se pueda arrastrar el fichero a analizar. 
+* Añadir un botón de lectura de fichero <input type="file" /> para cargar la entrada desde fichero.
 
-```javascript
-$.ajax({
-  url: url,
-  data: data,
-  success: success,
-  dataType: dataType
-});
-```
 
-The success callback function is passed the returned data, which will be an XML root element, text string, JavaScript file, or JSON object, depending on the MIME type of the response. It is also passed the text status of the response.
+## Heroku 
 
-# Heroku 
-https://cvsajax.herokuapp.com/
+* [Despliegue](http://practica8-josue-nayra.herokuapp.com/)
 
 
 ### Enlace al campus de la asignatura
@@ -50,16 +28,12 @@ https://cvsajax.herokuapp.com/
 ### Repositorios en github.io
 
 * [Repositorio de la práctica en la organización](https://github.com/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-josue-nayra-dsi15-16-1)
- 
+* [Fork del repositorio](https://github.com/alu0100406122/ajax-ecma6-ficheros-josue-nayra-dsi15-16-1)
+
 
 ### Despliegue de la práctica
 
 * [Comma Separated]()
-
-
-### Despliegue de la práctica en Heroku
-
-* [Heroku]()
 
 
 ### AUTORES: 

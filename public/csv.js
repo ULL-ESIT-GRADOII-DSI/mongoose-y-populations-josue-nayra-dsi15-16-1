@@ -50,7 +50,7 @@ const handleDragFileSelect = (evt) => {
   evt.preventDefault();
 
   var files = evt.dataTransfer.files; // FileList object.
-
+  console.log("Drag and drop:"+files);
   var reader = new FileReader();
   reader.onload = (e) => {
   

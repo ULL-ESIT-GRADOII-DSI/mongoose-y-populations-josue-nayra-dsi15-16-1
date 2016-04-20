@@ -74,6 +74,16 @@ $(document).ready(() => {
       original.value = localStorage.original;
     }
 
+    /* Request Ajax para que se guarde la tabla */
+    $("#guardar").click( () => {
+        console.log("En csv: nombre_tabla->"+$("#nombre_tabla").val());
+        $.get("/guardar_tabla", 
+          { input: original.value, nombre: $("#nombre_tabla").val() }, 
+          fillTable,
+          'json'
+        );
+    }); 
+
     /* Request AJAX para que se calcule la tabla */
     $("#parse").click( () => {
         if (window.localStorage) 

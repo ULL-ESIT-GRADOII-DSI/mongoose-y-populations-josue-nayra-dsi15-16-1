@@ -9,6 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/Practica9');
 const TablaSchema = mongoose.Schema({
+    "nombre": String,
     "entrada_actual": String
 });
 const Tabla = mongoose.model("Tabla",TablaSchema);
@@ -29,8 +30,13 @@ app.get('/', (request, response) => {
 });
 
 app.get('/csv', (request, response) => {
-    let t1 = new Tabla({entrada_actual: request.query.input});
+    response.send({ "rows": calculate(request.query.input) });
+});
 
+app.get('/guardar_tabla',(request, response) => { 
+    console.log("Guardar tabla..."); 
+    console.log("Datos: nombre_tabla->"+request.query.nombre);
+    let t1 = new Tabla({entrada_actual: request.query.input, nombre: request.query.nombre});
     let p1 = t1.save(function(err)
     {
         if(err)
@@ -42,8 +48,11 @@ app.get('/csv', (request, response) => {
             console.log(`Saved: ${t1}`);
         }
     });
-  
-    response.send({ "rows": calculate(request.query.input) });
+
+    //Nos aseguramos de que todos los registros se han salvado
+    Promise.all([p1]).then( (value) => {
+        console.log(util.inspect(value, {depth: null}));
+    });
 });
 
 app.get('/mostrar_bd',(request, response) => { 

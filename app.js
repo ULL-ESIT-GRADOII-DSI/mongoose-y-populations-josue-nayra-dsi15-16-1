@@ -19,7 +19,7 @@ const Tabla = mongoose.model("Tabla",TablaSchema);
 //Ejemplos por defecto
 let aux1 = new Tabla(
 {
-    entrada_actual: '"producto" ,    "precio" "\ncamisa", "4,3" "\nlibro de O\"Reilly", "7,2"',
+    entrada_actual: '"producto", "precio"\n "cam", "4,3" \n"libro de O\'Reilly", "7,2"',
     nombre: "Ejemplo1",
     descripcion: "Primer ejemplo para que el usuario cargue en la app"
 });

@@ -58,8 +58,8 @@ app.get('/csv', (request, response) => {
 app.get('/guardar_tabla',(request, response) => { 
     console.log("Guardar tabla..."); 
     console.log("Datos: nombre_tabla->"+request.query.nombre);
-    let t4 = new Tabla({entrada_actual: request.query.input, nombre: request.query.nombre, descripcion: request.query.descripcion});
-    let p4 = t4.save(function(err)
+    let t1 = new Tabla({entrada_actual: request.query.input, nombre: request.query.nombre});
+    let p1 = t1.save(function(err)
     {
         if(err)
         {
@@ -72,20 +72,10 @@ app.get('/guardar_tabla',(request, response) => {
     });
 
     //Nos aseguramos de que todos los registros se han salvado
-    Promise.all([p4]).then( (value) => {
+
+    Promise.all([p1]).then( (value) => {
         console.log(util.inspect(value, {depth: null}));
     });
-    
-    /*Tabla.find({nombre: request.query.input},function(err,data)
-    {
-       if(err) { return console.error(err);}
-       if(data == null)
-       {
-           console.log("No hay registros en la coleccion");
-       }
-       console.log("id\tnombre\tdescripcion\tcontenido\n" + data[0]._id+"\t"+data[0].nombre+"\t"+data[0].descripcion+"\t"+data[0].entrada_actual);
-    });*/
-    //response.render('index', {title: "Comma Separated Values (CSV) Analyzer with Ajax" , autor1: "Maria Nayra Rodriguez Perez", autor2: "Josue Toledo Castro"});
 });
 
 app.get('/cargar_datos',(request,response) => {

@@ -90,6 +90,7 @@ $(document).ready(() => {
           'json'
         );
     });    
+    
     /* Request AJAX para que se calcule la tabla */
     $("#parse").click( () => {
         if (window.localStorage) 

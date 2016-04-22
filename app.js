@@ -17,13 +17,13 @@ const TablaSchema = mongoose.Schema({
 });
 const Tabla = mongoose.model("Tabla",TablaSchema);
 //Ejemplos por defecto
-let aux1 = new Tabla(
+let ejemplo1 = new Tabla(
 {
     entrada_actual: '"producto", "precio"\n "cam", "4,3" \n"libro de O\'Reilly", "7,2"',
     nombre: "Ejemplo1",
     descripcion: "Primer ejemplo para que el usuario cargue en la app"
 });
-let p1 = aux1.save(function(err)
+let p1 = ejemplo1.save(function(err)
 {
     if(err)
     {
@@ -31,7 +31,41 @@ let p1 = aux1.save(function(err)
     }
     else
     {
-        console.log(`Saved: ${aux1}`);
+        console.log(`Saved: ${ejemplo1}`);
+    }
+});
+let ejemplo2 = new Tabla(
+{
+    entrada_actual: '"producto","precio","fecha"\n "camisa","4,3","14/01"\n "libro de O\'Reilly", "7,2","13/02"',
+    nombre: "Ejemplo2",
+    descripcion: "Segundo ejemplo para que el usuario cargue en la app"
+});
+let p2 = ejemplo2.save(function(err)
+{
+    if(err)
+    {
+        console.log(`Hubieron errores:\n${err}`); return err; 
+    }
+    else
+    {
+        console.log(`Saved: ${ejemplo2}`);
+    }
+});
+let ejemplo3 = new Tabla(
+{
+    entrada_actual: '"edad",  "sueldo",  "peso"\n  ,"6000€","90Kg"\n47,       "3000€",  "100Kg"',
+    nombre: "Ejemplo3",
+    descripcion: "Tercer ejemplo para que el usuario cargue en la app"
+});
+let p3 = ejemplo3.save(function(err)
+{
+    if(err)
+    {
+        console.log(`Hubieron errores:\n${err}`); return err; 
+    }
+    else
+    {
+        console.log(`Saved: ${ejemplo3}`);
     }
 });
 

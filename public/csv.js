@@ -24,12 +24,20 @@ const fillTable = (data) => {
 
 /* Volcar en la textarea de entrada 
  * #original el contenido del fichero fileName */
-const dump = (fileName) => {
+/*const dump = (fileName) => {
   $.get(fileName, function (data) {
       $("#original").val(data);
   });
-};
- 
+};*/
+const dump = (boton_name) => {
+    console.log("Ha hecho click en el boton:" + boton_name);
+    $.get("/cargar_datos", { boton_name: boton_name }, respuesta =>
+    {
+       console.log("Respuesta:"+respuesta);
+       $("#original").val(respuesta[0].entrada_actual);
+    });
+}
+
 const handleFileSelect = (evt) => {
   evt.stopPropagation();
   evt.preventDefault();
@@ -74,6 +82,26 @@ $(document).ready(() => {
       original.value = localStorage.original;
     }
 
+    /* Request Ajax para que se guarde la tabla */
+    $("#guardar").click( () => {
+        $.get("/guardar_tabla", 
+          { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },data_respuesta =>
+          {
+            console.log("Respuesta del servidor despues de guardar->"+data_respuesta);
+            console.log("Nombre del boton:"+data_respuesta.nombre_boton);
+            $("#guardado_respuesta").fadeIn();
+            $("#boton4").fadeIn();
+            $("#guardado_respuesta").html("<i>"+data_respuesta.mensaje_respuesta+"</i>");
+            $("#boton4").html(data_respuesta.nombre_boton);
+          });
+    });    
+    
+    //Una vez que se ha guardado la tabla, desde que el foco cambia en la página desaparece el mensaje de guardado
+    $("#guardar").focusout(function()
+    {
+      $("#guardado_respuesta").fadeOut("slow");  
+    });
+    
     /* Request AJAX para que se calcule la tabla */
     $("#parse").click( () => {
         if (window.localStorage) 
@@ -94,10 +122,14 @@ $(document).ready(() => {
     
     /*`${$(y).text()}.txt` --> texto ECMA6 (comillas)*/
     
-    $('button.example').each( (_,y) => {
+    /*$('button.example').each( (_,y) => {
       $(y).click( () => { dump(`${$(y).text()}.txt`); });
-    });
+    });*/
 
+    $('button.example').each( (_,y) => {
+      $(y).click( () => { dump(`${$(y).text()}`); });
+    });
+    
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];
     let dropZone = $('.drop_zone')[0];

@@ -14,6 +14,7 @@ const TablaSchema = mongoose.Schema({
     "entrada_actual": String,
     "nombre": String,
     "descripcion": String
+    //"id": String
 });
 const Tabla = mongoose.model("Tabla",TablaSchema);
 //Ejemplos por defecto
@@ -22,6 +23,7 @@ let ejemplo1 = new Tabla(
     entrada_actual: '"producto", "precio"\n "cam", "4,3" \n"libro de O\'Reilly", "7,2"',
     nombre: "Ejemplo1",
     descripcion: "Primer ejemplo para que el usuario cargue en la app"
+    //id: "Tabla1"
 });
 let p1 = ejemplo1.save(function(err)
 {
@@ -39,6 +41,7 @@ let ejemplo2 = new Tabla(
     entrada_actual: '"producto","precio","fecha"\n "camisa","4,3","14/01"\n "libro de O\'Reilly", "7,2","13/02"',
     nombre: "Ejemplo2",
     descripcion: "Segundo ejemplo para que el usuario cargue en la app"
+    //id: "Tabla2"
 });
 let p2 = ejemplo2.save(function(err)
 {
@@ -56,6 +59,7 @@ let ejemplo3 = new Tabla(
     entrada_actual: '"edad",  "sueldo",  "peso"\n  ,"6000€","90Kg"\n47,       "3000€",  "100Kg"',
     nombre: "Ejemplo3",
     descripcion: "Tercer ejemplo para que el usuario cargue en la app"
+    //id: "Tabla3"
 });
 let p3 = ejemplo3.save(function(err)
 {
@@ -92,23 +96,38 @@ app.get('/csv', (request, response) => {
 app.get('/guardar_tabla',(request, response) => { 
     console.log("Guardar tabla..."); 
     console.log("Datos: nombre_tabla->"+request.query.nombre);
-    let t1 = new Tabla({entrada_actual: request.query.input, nombre: request.query.nombre});
-    let p1 = t1.save(function(err)
+    
+    //Comprobamos el número de registros en la base de datos
+    Tabla.find({},function(err, data) 
     {
-        if(err)
+        console.log("Data.length --> "+data.length);
+        if(data.length > 3)
         {
-            console.log(`Hubieron errores:\n${err}`); return err; 
+            console.log("Nombre 3 --> "+data[3].nombre);
+            Tabla.remove({nombre: data[3].nombre}).exec();
         }
-        else
+        let nueva_tabla = new Tabla(
         {
-            console.log(`Saved: ${t4}`);
-        }
-    });
-
-    //Nos aseguramos de que todos los registros se han salvado
-
-    Promise.all([p1]).then( (value) => {
-        console.log(util.inspect(value, {depth: null}));
+            entrada_actual: request.query.input,
+            nombre: request.query.nombre,
+            descripcion: request.query.descripcion
+        });
+        let n_t = nueva_tabla.save(function(err)
+        {
+            if(err)
+            {
+                console.log(`Hubieron errores:\n${err}`); return err; 
+            }
+            else
+            {
+                console.log(`Saved: ${nueva_tabla}`);
+            }
+            
+            //Nos aseguramos de que todos los registros se han salvado
+            Promise.all([n_t]).then( (value) => {
+                console.log(util.inspect(value, {depth: null}));
+            });        
+        });
     });
 });
 

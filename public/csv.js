@@ -85,10 +85,10 @@ $(document).ready(() => {
     /* Request Ajax para que se guarde la tabla */
     $("#guardar").click( () => {
         $.get("/guardar_tabla", 
-          { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() }, 
-          fillTable,
-          'json'
-        );
+          { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },respuesta =>
+          {
+
+          });
     });    
     
     /* Request AJAX para que se calcule la tabla */

@@ -86,7 +86,7 @@ const calculate = require('./models/calculate.js');
 
 app.get('/', (request, response) => {     
   //console.log("Accediendo a index");
-    response.render('index', {title: "Comma Separated Values (CSV) Analyzer with Ajax" , autor1: "Maria Nayra Rodriguez Perez", autor2: "Josue Toledo Castro"});
+    response.render('index', {title: "Comma Separated Values (CSV) Analyzer with Ajax" , autor1: "M. Nayra Rguez Perez", autor2: "Josue Toledo Castro", boton4: "Ejemplo4"});
 });
 
 app.get('/csv', (request, response) => {
@@ -116,10 +116,12 @@ app.get('/guardar_tabla',(request, response) => {
         {
             if(err)
             {
+                response.send({mensaje_respuesta: 'No se ha guardado correctamente', nombre_boton:""});
                 console.log(`Hubieron errores:\n${err}`); return err; 
             }
             else
             {
+                response.send({mensaje_respuesta: 'Guardado con exito', nombre_boton: request.query.nombre});
                 console.log(`Saved: ${nueva_tabla}`);
             }
             

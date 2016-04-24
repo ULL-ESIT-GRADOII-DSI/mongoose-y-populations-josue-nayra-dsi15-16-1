@@ -1,23 +1,38 @@
-#Práctica 8. Comma Separated Values
+# Práctica 9. CSV usando MongoDB
 
 ## Desarrollo de Sistemas Informáticos. 
-##ETSII ULL Grado de Informática.
+## ETSII ULL Grado de Informática.
 
 
-##Requisitos:
+## Requisitos:
 
-* Practicar un request AJAX usando jQuery: El navegador/cliente lee la cadena con los datos de entrada y se los envía usando AJAX al servidor, el cual calcula y devuelve en JSON la tabla (el array de arrays) que finalmente es insertada en la página por el cliente/navegador.
-* Aisle el cálculo de la tabla en un modulo Node.js
-* El volcado de la salida en el cliente debe hacerse usando underscore evitando concatenación de cadenas
-* Utilizar tantas características de ECMA6 como sea posible.
-* Añadir botones/enlaces/menu de selección que permitan cargar un fichero específico de una lista de ficheros en la texarea de entrada como en el ejemplo en crguezl/expressloadfileontotextarea
-* Añadir una zona de Drag-and-Drop a la que se pueda arrastrar el fichero a analizar. 
-* Añadir un botón de lectura de fichero <input type="file" /> para cargar la entrada desde fichero.
+* Añadir un botón guardar. Cuando se hace click en dicho botón se guarda la entrada actual en una base de datos MongoDB.
+    * El contenidode la entrada actual se guarda con un nombre que se solicita previamente al usuario.
+    * Usaremos Mongoose para acceder a la base de datos.
+* Sólo se guardan hasta un límite de cuatro ejemplos en la Base de Datos. Cuando el número excede del límite se borra uno de los anteriores y se guarda la nueva entrada.
+* Botones de selección de ejemplo.
+    * Tantos botones como registros hay en la Base de Datos.
+    * Al hacer click en uno de estos botones se carga el ejemplo con ese nombre desde la base de datos en la textarea de entrada.
+* Despliegue en Cloud9.
 
 
-## Heroku 
+## Conceptos
 
-* [Despliegue](http://practica8-josue-nayra.herokuapp.com/)
+### ECMA6
+* Funciones de dirección. Sintaxis más corta en comparación con las expresiones de función.
+* Plantillas literales de strings que permiten expresiones incrustadas.
+* Se pueden utilizar cadenas multilínea e interpolación de cadenas con cadenas de la plantilla.
+* Diferencia entre let y var.
+Cuando let se utiliza dentro de un bloque, el alcance de los límites de la variable para ese bloque. El alcance de var está dentro de la función en la que se declara.
+
+let name = "Bob", time = "today";
+`Hello ${name}, how are you ${time}?`
+
+### MongoDB
+
+$ mkdir data
+$ echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod
+$ chmod a+x mongod
 
 
 ### Enlace al campus de la asignatura
@@ -27,13 +42,13 @@
 
 ### Repositorios en github.io
 
-* [Repositorio de la práctica en la organización](https://github.com/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-josue-nayra-dsi15-16-1)
-* [Fork del repositorio](https://github.com/alu0100406122/ajax-ecma6-ficheros-josue-nayra-dsi15-16-1)
+* [Repositorio de la práctica en la organización](https://github.com/ULL-ESIT-GRADOII-DSI/mongodb-mongoose-csv-josue-nayra-dsi15-16-1)
+* [Fork del repositorio](https://github.com/JosueTC94/mongodb-mongoose-csv-josue-nayra-dsi15-16-1)
 
 
 ### Despliegue de la práctica
 
-* [Comma Separated]()
+* [Cloud 9]()
 
 
 ### AUTORES: 

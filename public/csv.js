@@ -31,7 +31,7 @@ const fillTable = (data) => {
 };*/
 const dump = (boton_name) => {
     console.log("Ha hecho click en el boton:" + boton_name);
-    $.get("/cargar_datos", { boton_name: boton_name }, respuesta =>
+    $.get("/cargar_datos/"+boton_name, { boton_name: boton_name }, respuesta =>
     {
        console.log("Respuesta:"+respuesta);
        $("#original").val(respuesta[0].entrada_tabla);
@@ -85,7 +85,7 @@ $(document).ready(() => {
     /* Request Ajax para que se guarde la tabla */
     $("#guardar").click( (event) => {
         event.preventDefault();
-        $.get("/guardar_tabla", 
+        $.get("/guardar_tabla/"+$("#nombre_tabla").val(), 
           { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },data_respuesta =>
           {
             console.log("Respuesta del servidor despues de guardar->"+data_respuesta);

@@ -15,6 +15,7 @@
     * Al hacer click en uno de estos botones se carga el ejemplo con ese nombre desde la base de datos en la textarea de entrada.
 * Despliegue en Cloud9.
 
+--------
 
 ## Conceptos
 
@@ -25,16 +26,21 @@
 * Diferencia entre let y var.
 Cuando let se utiliza dentro de un bloque, el alcance de los límites de la variable para ese bloque. El alcance de var está dentro de la función en la que se declara.
 
-let name = "Bob", time = "today";
+`let name = "Bob", time = "today";`
+
 `Hello ${name}, how are you ${time}?`
 
 ### MongoDB
 
-$ mkdir data
-$ echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod
-$ chmod a+x mongod
+`$ mkdir data`
 
+`$ echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod`
 
+`$ chmod a+x mongod`
+
+--------
+
+### ENLACES DE INTERÉS:
 ### Enlace al campus de la asignatura
 
 * [Desarrollo de Sistemas Informáticos](https://campusvirtual.ull.es/my/)
@@ -48,8 +54,10 @@ $ chmod a+x mongod
 
 ### Despliegue de la práctica
 
-* [Cloud 9]()
+* [Cloud 9](https://practica9-dsi1516-josuetc94.c9users.io/)
+* [Workspace](https://ide.c9.io/josuetc94/practica9-dsi1516)
 
+--------
 
 ### AUTORES: 
 ### Páginas personales de gh-pages:

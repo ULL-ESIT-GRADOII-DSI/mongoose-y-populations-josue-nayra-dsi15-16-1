@@ -29,9 +29,27 @@ app.get('/csv', (request, response) => {
     response.send({ "rows": calculate(request.query.input) });
 });
 
-app.get('/guardar_tabla',(request, response) => { 
+app.param('ejemplo', function (req, res, next, ejemplo) {  
+  if (ejemplo.match(/^[a-z0-9_]*$/i)) { 
+      req.ejemplo = ejemplo;
+  } else { 
+      next(new Error(`<${ejemplo}> does not match 'ejemplo' requirements`));
+      /* Error: <input1.csx> does not match 'ejemplo' requirements at app.js:85:12 */
+   }
+  next();
+});
+
+app.get('/cargar_datos/:ejemplo',(request,response) => {
+    //console.log("Cargar_datos => data: "+request.query.boton_name);
+    console.log("Cargar_datos => data: "+request.params.ejemplo);
+    Tabla.find({nombre: request.params.ejemplo},function(err,data){
+        response.send(data); //Servidor envia datos a csv.js
+    });
+});
+
+app.get('/guardar_tabla/:ejemplo',(request, response) => { 
     console.log("Guardar tabla..."); 
-    console.log("Datos: nombre_tabla->"+request.query.nombre);
+    console.log("Datos: nombre_tabla->"+request.params.ejemplo);
 
     //Comprobamos el número de registros en la base de datos
     Tabla.find({},function(err, data) 
@@ -49,7 +67,7 @@ app.get('/guardar_tabla',(request, response) => {
         let nueva_tabla = new Tabla(
         {
             entrada_tabla: request.query.input,
-            nombre: request.query.nombre,
+            nombre: request.params.ejemplo,
             descripcion: request.query.descripcion
         });
         let n_t = nueva_tabla.save(function(err)
@@ -61,7 +79,7 @@ app.get('/guardar_tabla',(request, response) => {
             }
             else
             {
-                response.send({mensaje_respuesta: 'Guardado con exito', nombre_boton: request.query.nombre});
+                response.send({mensaje_respuesta: 'Guardado con exito', nombre_boton: request.params.ejemplo});
                 console.log(`Saved: ${nueva_tabla}`);
             }
             
@@ -71,13 +89,6 @@ app.get('/guardar_tabla',(request, response) => {
         Promise.all([n_t]).then( (value) => {
             console.log(util.inspect(value, {depth: null}));
         }); 
-    });
-});
-
-app.get('/cargar_datos',(request,response) => {
-    console.log("Cargar_datos => data: "+request.query.boton_name);
-    Tabla.find({nombre: request.query.boton_name},function(err,data){
-        response.send(data); //Servidor envia datos a csv.js
     });
 });
 

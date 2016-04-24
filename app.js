@@ -7,7 +7,9 @@ const expressLayouts = require('express-ejs-layouts');
 
 //Conexión con Estructura de MongoDB
 const Tabla = require('./models/estructura_bd.js');
-
+const util = require('util');
+const mongoose = require('mongoose');
+    
 app.set('port', (process.env.PORT || 5000));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +32,7 @@ app.get('/csv', (request, response) => {
 app.get('/guardar_tabla',(request, response) => { 
     console.log("Guardar tabla..."); 
     console.log("Datos: nombre_tabla->"+request.query.nombre);
-    
+
     //Comprobamos el número de registros en la base de datos
     Tabla.find({},function(err, data) 
     {

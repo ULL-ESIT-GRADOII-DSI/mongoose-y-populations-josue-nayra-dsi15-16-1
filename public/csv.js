@@ -83,7 +83,8 @@ $(document).ready(() => {
     }
 
     /* Request Ajax para que se guarde la tabla */
-    $("#guardar").click( () => {
+    $("#guardar").click( (event) => {
+        event.preventDefault();
         $.get("/guardar_tabla", 
           { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },data_respuesta =>
           {

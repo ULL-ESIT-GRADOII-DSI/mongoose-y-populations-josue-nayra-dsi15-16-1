@@ -14,6 +14,8 @@
         //"id": String
     });
     const Tabla = mongoose.model("Tabla",TablaSchema);
+    Tabla.remove({}).exec();
+    
     //Ejemplos por defecto
     let ejemplo1 = new Tabla(
     {

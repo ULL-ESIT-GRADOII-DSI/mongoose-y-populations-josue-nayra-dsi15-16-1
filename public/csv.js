@@ -34,7 +34,7 @@ const dump = (boton_name) => {
     $.get("/cargar_datos", { boton_name: boton_name }, respuesta =>
     {
        console.log("Respuesta:"+respuesta);
-       $("#original").val(respuesta[0].entrada_actual);
+       $("#original").val(respuesta[0].entrada_tabla);
     });
 }
 

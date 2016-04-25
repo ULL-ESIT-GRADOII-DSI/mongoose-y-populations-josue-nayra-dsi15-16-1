@@ -8,8 +8,7 @@ const expressLayouts = require('express-ejs-layouts');
 //Conexión con Estructura de MongoDB
 const Tabla = require('./models/estructura_bd.js');
 const util = require('util');
-const mongoose = require('mongoose');
-    
+
 app.set('port', (process.env.PORT || 5000));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +33,6 @@ app.param('ejemplo', function (req, res, next, ejemplo) {
       req.ejemplo = ejemplo;
   } else { 
       next(new Error(`<${ejemplo}> does not match 'ejemplo' requirements`));
-      /* Error: <input1.csx> does not match 'ejemplo' requirements at app.js:85:12 */
    }
   next();
 });
@@ -54,24 +52,20 @@ app.get('/guardar_tabla/:ejemplo',(request, response) => {
     //Comprobamos el número de registros en la base de datos
     Tabla.find({},function(err, data) 
     {
-        if(err)
-        {
+        if(err){
             console.error("Se ha producido un error->"+err);
         }
         console.log("Data.length --> "+data.length);
-        if(data.length > 3)
-        {
+        if(data.length > 3){
             console.log("Nombre 3 --> "+data[3].nombre);
             Tabla.remove({nombre: data[3].nombre}).exec();
         }
-        let nueva_tabla = new Tabla(
-        {
+        let nueva_tabla = new Tabla({
             entrada_tabla: request.query.input,
             nombre: request.params.ejemplo,
             descripcion: request.query.descripcion
         });
-        let n_t = nueva_tabla.save(function(err)
-        {
+        let n_t = nueva_tabla.save(function(err){
             if(err)
             {
                 response.send({mensaje_respuesta: 'No se ha guardado correctamente', nombre_boton:""});
@@ -85,10 +79,12 @@ app.get('/guardar_tabla/:ejemplo',(request, response) => {
             
         });
         
-        //Nos aseguramos de que todos los registros se han salvado
-        Promise.all([n_t]).then( (value) => {
-            console.log(util.inspect(value, {depth: null}));
-        }); 
+        n_t.then(function(value) {
+            console.log(value); // Success!
+        }, function(reason) {
+            console.log(reason); // Error!
+        });
+        
     });
 });
 

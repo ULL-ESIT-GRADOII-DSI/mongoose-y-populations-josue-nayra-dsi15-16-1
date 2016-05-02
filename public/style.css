@@ -1,5 +1,5 @@
 body {
-  font: 100% Arial, sans-serif;
+  /*font: 100% Arial, sans-serif;*/
   color: black;
   background-color: #F9F9F9; }
 
@@ -17,7 +17,7 @@ tr {
   background-color: #eee; }
 
 th {
-  font-size: x-large;
+  font-size: large;
   vertical-align: top;
   text-align: right; }
 

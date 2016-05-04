@@ -115,8 +115,9 @@ $(document).ready(() => {
           fillTable,
           'json'
         );
-        $("#input").css("float","left");
-        $("#input").css("margin-left","70px");
+        //$("#input").css("float","left");
+        //$("#input").css("margin-left","70px");
+        //$(".output").css("float","left");
     });
     /* botones para rellenar el textarea */
     /*dump --> vuelca el contenido del fichero y recibe como argumento el nombre del fichero*/

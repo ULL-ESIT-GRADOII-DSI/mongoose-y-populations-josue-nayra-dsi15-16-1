@@ -5,7 +5,7 @@
       </h1>
     </div>
     <div class="contenido">
-      <div class="row">
+      <div class="row pull-right">
       <table class="center" style="margin-top:0px;margin-bottom:25px"; id="input">
         <tr><th><center>Escriba aquí una entrada CSV</center></th></tr>
         <tr>
@@ -29,7 +29,7 @@
         </tr>
         <tr>
           <th>
-          <div class="example">
+          <div class="example" id="botones">
             Cargar ejemplo
             <br>
             <button class ="example" type="button" style="width:20%;margin-top:15px;">Ejemplo1</button>
@@ -48,11 +48,40 @@
           </th>
         </tr>
       </table>
-      <div class="output" id="finaltable">
       </div>
     </div>
     
-    <footer>
+    <div class="pull-left">
+      <table id="usuarios">
+        <tr><th><center>Usuarios</center></th></tr>
+        <tr>
+          <th>
+            <div class="example">
+              Nombre de usuario: 
+              <input type="text" id="nombre_usuario" style="margin-top:5px;height:35px;width:35%;" placeholder="Usuario" required/>
+              <button type="button" class="pull-right" id="buscar_usuario"> Buscar</button>
+              <div id="guardado_respuesta" style="float:right;margin-right:30px;"></div>
+            </div>
+          </th>
+        </tr>
+        <tr> 
+          <th>
+            <div class= "example">
+              Usuario de ejemplo:
+              <select style="margin-top:5px;height:35px;width:34%;" name="usuarios_ejemplo">
+                <option selected value="0"> Elige una opción </option>
+                <option value="1">Josué</option> 
+                <option value="2">Nayra</option> 
+              </select>
+            </div>
+          </th>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="output" id="finaltable"></div>
+    
+    <!--footer>
       <div class="container">
         <div class="row">
           <div class="three columns">
@@ -69,6 +98,6 @@
           </div>
         </div>
       </div>
-    </footer>
+    </footer-->
     
   </div>

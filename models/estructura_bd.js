@@ -1,20 +1,16 @@
-(function(exports)
-{
     "use strict";
     console.log("Configurando MongoDB...");
     //Conexión con MongoDB
     const util = require('util');
     const mongoose = require('mongoose');
     
-    mongoose.connect('mongodb://localhost/Practica9');
+    mongoose.connect('mongodb://localhost/Practica10');
     
     const Schema = mongoose.Schema;
     
     const UserSchema = new Schema({
         nombre: String,
-        apellidos: String,
-        user: String,
-        tablas: [{ type: Schema.Types.ObjectId, ref: 'Tabla'}]
+        apellidos: String
     });
 
     const TablaSchema = new Schema({
@@ -34,8 +30,7 @@
                let usuario_prueba1 = new User(
                {
                     nombre: "Josue",
-                    apellidos: "Toledo",
-                    user: "JosueTC"
+                    apellidos: "Toledo"
                });
                usuario_prueba1.save(function(err)
                {
@@ -73,8 +68,7 @@
                let usuario_prueba2 = new User(
                {
                     nombre: "Nayra",
-                    apellidos: "Rodriguez",
-                    user: "Nayrita"
+                    apellidos: "Rodriguez"
                });
                usuario_prueba2.save(function(err)
                {
@@ -108,25 +102,4 @@
         });
     });
     
-    let ejemplo3 = new Tabla(
-    {
-        entrada_tabla: '"edad",  "sueldo",  "peso"\n  ,"6000€","90Kg"\n47,       "3000€",  "100Kg"',
-        nombre: "Ejemplo3",
-        descripcion: "Tercer ejemplo para que el usuario cargue en la app"
-        //id: "Tabla3"
-    });
-    let p3 = ejemplo3.save(function(err)
-    {
-        if(err)
-        {
-            console.log(`Hubieron errores:\n${err}`); return err; 
-        }
-        else
-        {
-            console.log(`Saved: ${ejemplo3}`);
-        }
-    });
-    
-    module.exports = User;
-    module.exports = Tabla;
-})()
+    module.exports = { Tabla: Tabla, User: User};

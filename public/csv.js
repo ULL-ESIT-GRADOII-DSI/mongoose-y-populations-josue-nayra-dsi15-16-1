@@ -17,10 +17,26 @@ const resultTemplate = `
 </div>
 `;
 
+const botonesTemplate =  `
+<div class="example">
+  <% _.each(buttons, (button) => { %>
+  <button class="example" type="button" style="width:20%"><%= button.nombre %></button>
+  <% }); %>
+</div>
+`;
+
+var user_actual;
+
 /* Volcar la tabla con el resultado en el HTML */
 const fillTable = (data) => { 
   $("#finaltable").html(_.template(resultTemplate, { rows: data.rows })); 
 };
+
+const botones_ejemplos = (data) => {
+  user_actual = data.usuario_propietario;
+  console.log("User_actual:"+user_actual);
+  $("#botones").html(_.template(botonesTemplate, { buttons: data.contenido, usuario_propietario: data.usuario_propietario}));
+}
 
 /* Volcar en la textarea de entrada 
  * #original el contenido del fichero fileName */
@@ -29,6 +45,7 @@ const fillTable = (data) => {
       $("#original").val(data);
   });
 };*/
+
 const dump = (boton_name) => {
     console.log("Ha hecho click en el boton:" + boton_name);
     /*$.get("/cargar_datos/"+boton_name, { boton_name: boton_name }, respuesta =>
@@ -82,8 +99,17 @@ $(document).ready(() => {
       original.value = localStorage.original;
     }
 
+    $("#buscar_usuario").click( (event) => {
+      event.preventDefault();
+      $.get('/buscar/'+$("#nombre_usuario").val(),
+        { usuario: $("nombre_usuario").val()},
+        botones_ejemplos,
+        'json'
+      );
+    });
+
     /* Request Ajax para que se guarde la tabla */
-    $("#guardar").click( (event) => {
+    /*$("#guardar").click( (event) => {
         event.preventDefault();
         $.get("/guardar_tabla/"+$("#nombre_tabla").val(), 
           { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },data_respuesta =>
@@ -95,7 +121,7 @@ $(document).ready(() => {
             $("#guardado_respuesta").html("<i>"+data_respuesta.mensaje_respuesta+"</i>");
             $("#boton4").html(data_respuesta.nombre_boton);
           });
-    });    
+    });    */
     
     //Una vez que se ha guardado la tabla, desde que el foco cambia en la página desaparece el mensaje de guardado
     $("#guardar").focusout(function()

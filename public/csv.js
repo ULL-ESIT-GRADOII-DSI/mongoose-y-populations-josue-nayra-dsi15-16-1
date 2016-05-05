@@ -36,23 +36,21 @@ const botones_ejemplos = (data) => {
   user_actual = data.usuario_propietario;
   console.log("User_actual:"+user_actual);
   $("#botones").html(_.template(botonesTemplate, { buttons: data.contenido, usuario_propietario: data.usuario_propietario}));
+
+  $('button.example').each( (_,y) => {
+    $(y).click( () => { dump(`${$(y).text()}`,user_actual); });
+  });
 }
 
-/* Volcar en la textarea de entrada 
- * #original el contenido del fichero fileName */
-/*const dump = (fileName) => {
-  $.get(fileName, function (data) {
-      $("#original").val(data);
-  });
-};*/
 
-const dump = (boton_name) => {
+const dump = (boton_name,usuario) => {
     console.log("Ha hecho click en el boton:" + boton_name);
-    /*$.get("/cargar_datos/"+boton_name, { boton_name: boton_name }, respuesta =>
+    /* $.get("/cargar_datos", { boton_name: boton_name, usuario: usuario }, respuesta =>
     {
        console.log("Respuesta:"+respuesta);
        $("#original").val(respuesta[0].entrada_tabla);
     });*/
+    $("#original").val("chuchu");
 }
 
 const handleFileSelect = (evt) => {

@@ -97,7 +97,14 @@ $(document).ready(() => {
     if (window.localStorage && localStorage.original) {
       original.value = localStorage.original;
     } 
-
+    
+    $("#usuarios_ejemplo").change(function()
+    {
+        console.log("Usuario elegido:"+$("#usuarios_ejemplo").val());
+        $("#nombre_usuario").val($("#usuarios_ejemplo").val());
+        $("#buscar_usuario").css("border-color","#660033");
+    });
+    
     $("#buscar_usuario").click( (event) => {
       event.preventDefault();
       $.get('/buscar/'+$("#nombre_usuario").val(),

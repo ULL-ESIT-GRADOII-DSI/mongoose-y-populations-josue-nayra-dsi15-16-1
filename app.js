@@ -74,24 +74,38 @@ app.get('/buscar/:usuario',(request,response) => {
         }
         else
         {
-            console.log("Error:"+err);
-            console.log("Enviando datos a csv.js => Id de usuario:"+data[0]._id);
-            /*var id = new ObjectId(data[0]._id);
-            console.log("Id:"+id._id);*/
-            const id = mongoose.Types.ObjectId(data[0]._id);
-            console.log("Id:"+id);
-            Tabla.find({_creator: id},function(err,data_tablas)
-            {
-                if(err)
+            if(data.length > 0){
+                console.log("Error:"+err);
+                console.log("Enviando datos a csv.js => Id de usuario:"+data[0]._id);
+                /*var id = new ObjectId(data[0]._id);
+                console.log("Id:"+id._id);*/
+                const id = mongoose.Types.ObjectId(data[0]._id);
+                console.log("Id:"+id);
+                Tabla.find({_creator: id},function(err,data_tablas)
                 {
-                    console.error("Se ha producido un error->"+err);
-                }
-                else
-                {
-                    console.log("Enviando dattos a csv.js => Tablas asociadas:"+data_tablas);    
-                }
-                response.send({contenido: data_tablas, usuario_propietario: id});
-            });
+                    if(err)
+                    {
+                        console.error("Se ha producido un error->"+err);
+                    }
+                    else
+                    {
+                        console.log("Enviando dattos a csv.js => Tablas asociadas:"+data_tablas);    
+                    }
+                    response.send({contenido: data_tablas, usuario_propietario: id, mensaje_respuesta: "Busqueda realizada correctamente."});
+                });
+            }
+            else{
+                console.log("creando nuevo usuario.");
+                let nuevo_usuario = new User({
+                    nombre: request.params.usuario
+                });
+                nuevo_usuario.save(function(err){
+                   if(err) return console.log(err);
+                   response.send({contenido: "", usuario_propietario: nuevo_usuario._id, mensaje_respuesta: "Nuevo usuario creado."});
+                }).then(() => {
+                    console.log(`Saved: ${nuevo_usuario}`);
+                })
+            }
         }
     });
 });

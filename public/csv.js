@@ -40,6 +40,8 @@ const botones_ejemplos = (data) => {
   $('button.example').each( (_,y) => {
     $(y).click( () => { dump(`${$(y).text()}`,user_actual); });
   });
+  
+  $("#mensaje_busqueda").html("<i>"+data.mensaje_respuesta+"</i>");
 }
 
 

@@ -9,8 +9,7 @@
     const Schema = mongoose.Schema;
     
     const UserSchema = new Schema({
-        nombre: String,
-        apellidos: String
+        nombre: String
     });
 
     const TablaSchema = new Schema({
@@ -29,8 +28,7 @@
                console.log("Usuario Josue de prueba");
                let usuario_prueba1 = new User(
                {
-                    nombre: "Josue",
-                    apellidos: "Toledo"
+                    nombre: "Josue"
                });
                usuario_prueba1.save(function(err)
                {
@@ -67,8 +65,7 @@
                //Usuario Nayra de prueba
                let usuario_prueba2 = new User(
                {
-                    nombre: "Nayra",
-                    apellidos: "Rodriguez"
+                    nombre: "Nayra"
                });
                usuario_prueba2.save(function(err)
                {

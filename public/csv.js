@@ -45,12 +45,11 @@ const botones_ejemplos = (data) => {
 
 const dump = (boton_name,usuario) => {
     console.log("Ha hecho click en el boton:" + boton_name);
-    /* $.get("/cargar_datos", { boton_name: boton_name, usuario: usuario }, respuesta =>
+    $.get("/cargar_datos", { table_name: boton_name, usuario: usuario }, respuesta =>
     {
        console.log("Respuesta:"+respuesta);
        $("#original").val(respuesta[0].entrada_tabla);
-    });*/
-    $("#original").val("chuchu");
+    });
 }
 
 const handleFileSelect = (evt) => {
@@ -95,7 +94,7 @@ $(document).ready(() => {
     let original = document.getElementById("original");  
     if (window.localStorage && localStorage.original) {
       original.value = localStorage.original;
-    }
+    } 
 
     $("#buscar_usuario").click( (event) => {
       event.preventDefault();
@@ -139,22 +138,12 @@ $(document).ready(() => {
           fillTable,
           'json'
         );
-        //$("#input").css("float","left");
-        //$("#input").css("margin-left","70px");
-        //$(".output").css("float","left");
     });
-    /* botones para rellenar el textarea */
-    /*dump --> vuelca el contenido del fichero y recibe como argumento el nombre del fichero*/
-    
-    /*`${$(y).text()}.txt` --> texto ECMA6 (comillas)*/
-    
-    /*$('button.example').each( (_,y) => {
-      $(y).click( () => { dump(`${$(y).text()}.txt`); });
-    });*/
 
-    $('button.example').each( (_,y) => {
+    /*$('button.example').each( (_,y) => {
       $(y).click( () => { dump(`${$(y).text()}`); });
-    });
+    });*/
+    
     
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];

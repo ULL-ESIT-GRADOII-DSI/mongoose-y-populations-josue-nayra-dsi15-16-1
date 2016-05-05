@@ -36,19 +36,20 @@ app.get('/csv', (request, response) => {
     response.send({ "rows": calculate(request.query.input) });
 });
 
-app.param('ejemplo', function (req, res, next, ejemplo) {  
+/*app.param('ejemplo', function (req, res, next, ejemplo) {  
   if (ejemplo.match(/^[a-z0-9_]*$/i)) { 
       req.ejemplo = ejemplo;
   } else { 
       next(new Error(`<${ejemplo}> does not match 'ejemplo' requirements`));
    }
   next();
-});
+});*/
 
-app.get('/cargar_datos/:ejemplo',(request,response) => {
+app.get('/cargar_datos',(request,response) => {
     //console.log("Cargar_datos => data: "+request.query.boton_name);
-    console.log("Cargar_datos => data: "+request.params.ejemplo);
-    Tabla.find({nombre: request.params.ejemplo},function(err,data){
+    console.log("Cargar_datos => data: "+request.query.table_name);
+    console.log("Nombre usuario => data: "+request.query.usuario);
+    Tabla.find({nombre: request.query.table_name},function(err,data){
         response.send(data); //Servidor envia datos a csv.js
     });
 });

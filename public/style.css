@@ -56,6 +56,10 @@ th, td {
 #result {
   border-color: white; }
 
+#mensaje_busqueda {
+  text-align: right;
+}
+
 /*tr:nth-child(odd) {
   background-color: #eee; }
 

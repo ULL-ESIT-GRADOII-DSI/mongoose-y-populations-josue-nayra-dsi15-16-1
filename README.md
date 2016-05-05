@@ -1,10 +1,24 @@
-# Práctica 9. CSV usando MongoDB
+# Práctica 10. Mongoose y Populations
 
 ## Desarrollo de Sistemas Informáticos. 
 ## ETSII ULL Grado de Informática.
 
 
-## Requisitos:
+A los requisitos de la práctica CSV usando MongoDB anterior, le añadimos una colección de usuarios: un usuario tiene un nombre y varios (no mas de cuatro) ejemplos. 
+Cada ejemplo pertenece a un único usuario.
+
+La secuencia de pasos debe ser parecida a esta:
+* Inicialmente se solicita se rellene en la vista de entrada el nombre de usuario.
+* Cuando se rellena el cliente hace un request Ajax al servidor.
+* El servidor busca dicho nombre en la colección de usuarios y si no lo encuentra crea un nuevo usuario y lo guarda en la base de datos. Su colección de ejemplos asociada es vacía.
+* En cualquier caso el servidor responde al request con los nombres de los ejemplos asociados con dicho usuario.
+* El cliente muestra los botones con los ejemplos de dicho usuario.
+* No se pide ninguna forma de autenticación en esta práctica.
+* El resto de botones y conductas es como en la práctica anterior.
+
+
+
+## Requisitos Práctica anterior:
 
 * Añadir un botón guardar. Cuando se hace click en dicho botón se guarda la entrada actual en una base de datos MongoDB.
     * El contenidode la entrada actual se guarda con un nombre que se solicita previamente al usuario.
@@ -48,14 +62,14 @@ Cuando let se utiliza dentro de un bloque, el alcance de los límites de la vari
 
 ### Repositorios en github.io
 
-* [Repositorio de la práctica en la organización](https://github.com/ULL-ESIT-GRADOII-DSI/mongodb-mongoose-csv-josue-nayra-dsi15-16-1)
-* [Fork del repositorio](https://github.com/JosueTC94/mongodb-mongoose-csv-josue-nayra-dsi15-16-1)
+* [Repositorio de la práctica en la organización](https://github.com/ULL-ESIT-GRADOII-DSI/mongoose-y-populations-josue-nayra-dsi15-16-1)
+* [Fork del repositorio](https://github.com/JosueTC94/mongoose-y-populations-josue-nayra-dsi15-16-1)
 
 
 ### Despliegue de la práctica
 
-* [Cloud 9](https://practica9-dsi1516-josuetc94.c9users.io/)
-* [Workspace](https://ide.c9.io/josuetc94/practica9-dsi1516)
+* [Cloud 9](https://practica10dsi-mongoose-populations-josuetc94.c9users.io/)
+* [Workspace](https://ide.c9.io/josuetc94/practica10dsi_mongoose_populations)
 
 --------
 

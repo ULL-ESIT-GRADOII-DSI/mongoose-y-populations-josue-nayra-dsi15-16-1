@@ -29,7 +29,7 @@ const calculate = require('./models/calculate.js');
 
 app.get('/', (request, response) => {     
   //console.log("Accediendo a index");
-    response.render('index', {title: "Comma Separated Values (CSV) Analyzer with Ajax" , autor1: "M. Nayra Rguez Perez", autor2: "Josue Toledo Castro", boton4: "Ejemplo4"});
+    response.render('index', {title: "Comma Separated Values (CSV) Analyzer with Ajax" , autor1: "M. Nayra Rguez Perez", autor2: "Josue Toledo Castro"});
 });
 
 app.get('/csv', (request, response) => {
@@ -45,10 +45,11 @@ app.param('ejemplo', function (req, res, next, ejemplo) {
   next();
 });
 
-app.get('/cargar_datos/:ejemplo',(request,response) => {
+app.get('/cargar_datos',(request,response) => {
     //console.log("Cargar_datos => data: "+request.query.boton_name);
-    console.log("Cargar_datos => data: "+request.params.ejemplo);
-    Tabla.find({nombre: request.params.ejemplo},function(err,data){
+    console.log("Cargar_datos => data: "+request.query.table_name);
+    console.log("Nombre usuario => data: "+request.query.usuario);
+    Tabla.find({nombre: request.query.table_name},function(err,data){
         response.send(data); //Servidor envia datos a csv.js
     });
 });
@@ -73,24 +74,38 @@ app.get('/buscar/:usuario',(request,response) => {
         }
         else
         {
-            console.log("Error:"+err);
-            console.log("Enviando datos a csv.js => Id de usuario:"+data[0]._id);
-            /*var id = new ObjectId(data[0]._id);
-            console.log("Id:"+id._id);*/
-            const id = mongoose.Types.ObjectId(data[0]._id);
-            console.log("Id:"+id);
-            Tabla.find({_creator: id},function(err,data_tablas)
-            {
-                if(err)
+            if(data.length > 0){
+                console.log("Error:"+err);
+                console.log("Enviando datos a csv.js => Id de usuario:"+data[0]._id);
+                /*var id = new ObjectId(data[0]._id);
+                console.log("Id:"+id._id);*/
+                const id = mongoose.Types.ObjectId(data[0]._id);
+                console.log("Id:"+id);
+                Tabla.find({_creator: id},function(err,data_tablas)
                 {
-                    console.error("Se ha producido un error->"+err);
-                }
-                else
-                {
-                    console.log("Enviando dattos a csv.js => Tablas asociadas:"+data_tablas);    
-                }
-                response.send({contenido: data_tablas, usuario_propietario: id});
-            });
+                    if(err)
+                    {
+                        console.error("Se ha producido un error->"+err);
+                    }
+                    else
+                    {
+                        console.log("Enviando dattos a csv.js => Tablas asociadas:"+data_tablas);    
+                    }
+                    response.send({contenido: data_tablas, usuario_propietario: id, mensaje_respuesta: "Busqueda realizada correctamente."});
+                });
+            }
+            else{
+                console.log("creando nuevo usuario.");
+                let nuevo_usuario = new User({
+                    nombre: request.params.usuario
+                });
+                nuevo_usuario.save(function(err){
+                   if(err) return console.log(err);
+                   response.send({contenido: "", usuario_propietario: nuevo_usuario._id, mensaje_respuesta: "Nuevo usuario creado."});
+                }).then(() => {
+                    console.log(`Saved: ${nuevo_usuario}`);
+                })
+            }
         }
     });
 });
@@ -100,9 +115,13 @@ app.get('/buscar/:usuario',(request,response) => {
 app.get('/guardar_tabla/:ejemplo',(request, response) => { 
     console.log("Guardar tabla..."); 
     console.log("Datos: nombre_tabla->"+request.params.ejemplo);
-
+    console.log("Datos: contenido_tabla->"+request.query.input);
+    console.log("Datos: descripcion_tabla->"+request.query.descripcion)
+    console.log("Datos: usuario propietario->"+request.query.usuario);
+    const id = mongoose.Types.ObjectId(request.query.usuario);
+    console.log("Datos: id->"+id);
     //Comprobamos el número de registros en la base de datos
-    Tabla.find({},function(err, data) 
+    Tabla.find({_creator: id},function(err, data) 
     {
         if(err){
             console.error("Se ha producido un error->"+err);
@@ -112,31 +131,29 @@ app.get('/guardar_tabla/:ejemplo',(request, response) => {
             console.log("Nombre 3 --> "+data[3].nombre);
             Tabla.remove({nombre: data[3].nombre}).exec();
         }
-        let nueva_tabla = new Tabla({
+        let nueva_tabla = new Tabla(
+        {
             entrada_tabla: request.query.input,
             nombre: request.params.ejemplo,
-            descripcion: request.query.descripcion
+            descripcion: request.query.descripcion,
+            _creator: id
         });
-        let n_t = nueva_tabla.save(function(err){
-            if(err)
-            {
-                response.send({mensaje_respuesta: 'No se ha guardado correctamente', nombre_boton:""});
-                console.log(`Hubieron errores:\n${err}`); return err; 
-            }
-            else
-            {
-                response.send({mensaje_respuesta: 'Guardado con exito', nombre_boton: request.params.ejemplo});
-                console.log(`Saved: ${nueva_tabla}`);
-            }
-            
+        //Guardamos tabla en BD
+        nueva_tabla.save(function(err)
+        {
+           if(err) return console.log(err); 
+           console.log(`Saved: ${nueva_tabla}`);
+        }).then(()=>{
+            Tabla
+            .findOne({entrada_tabla: request.query.input,nombre:request.params.ejemplo,descripcion: request.query.descripcion, _creator: id})
+            .populate('_creator')
+            .exec(function(err,tabla){
+                if(err) return console.log(err);
+                console.log('Propietario de tabla: %s',tabla._creator);
+            }).then( () => {
+                response.send({contenido: data, usuario_propietario: id});
+            });
         });
-        
-        n_t.then(function(value) {
-            console.log(value); // Success!
-        }, function(reason) {
-            console.log(reason); // Error!
-        });
-        
     });
 });
 

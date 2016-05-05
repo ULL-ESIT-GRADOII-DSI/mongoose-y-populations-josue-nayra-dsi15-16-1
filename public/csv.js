@@ -36,19 +36,18 @@ const botones_ejemplos = (data) => {
   user_actual = data.usuario_propietario;
   console.log("User_actual:"+user_actual);
   $("#botones").html(_.template(botonesTemplate, { buttons: data.contenido, usuario_propietario: data.usuario_propietario}));
+
+  $('button.example').each( (_,y) => {
+    $(y).click( () => { dump(`${$(y).text()}`,user_actual); });
+  });
+  
+  $("#mensaje_busqueda").html("<i>"+data.mensaje_respuesta+"</i>");
 }
 
-/* Volcar en la textarea de entrada 
- * #original el contenido del fichero fileName */
-/*const dump = (fileName) => {
-  $.get(fileName, function (data) {
-      $("#original").val(data);
-  });
-};*/
 
-const dump = (boton_name) => {
+const dump = (boton_name,usuario) => {
     console.log("Ha hecho click en el boton:" + boton_name);
-    $.get("/cargar_datos/"+boton_name, { boton_name: boton_name }, respuesta =>
+    $.get("/cargar_datos", { table_name: boton_name, usuario: usuario }, respuesta =>
     {
        console.log("Respuesta:"+respuesta);
        $("#original").val(respuesta[0].entrada_tabla);
@@ -97,8 +96,15 @@ $(document).ready(() => {
     let original = document.getElementById("original");  
     if (window.localStorage && localStorage.original) {
       original.value = localStorage.original;
-    }
-
+    } 
+    
+    $("#usuarios_ejemplo").change(function()
+    {
+        console.log("Usuario elegido:"+$("#usuarios_ejemplo").val());
+        $("#nombre_usuario").val($("#usuarios_ejemplo").val());
+        $("#buscar_usuario").css("border-color","#660033");
+    });
+    
     $("#buscar_usuario").click( (event) => {
       event.preventDefault();
       $.get('/buscar/'+$("#nombre_usuario").val(),
@@ -109,19 +115,21 @@ $(document).ready(() => {
     });
 
     /* Request Ajax para que se guarde la tabla */
-    /*$("#guardar").click( (event) => {
+    $("#guardar").click( (event) => {
         event.preventDefault();
         $.get("/guardar_tabla/"+$("#nombre_tabla").val(), 
-          { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },data_respuesta =>
-          {
-            console.log("Respuesta del servidor despues de guardar->"+data_respuesta);
+          { usuario: user_actual,input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },
+          botones_ejemplos,
+          'json'
+        );
+    });
+    /*        console.log("Respuesta del servidor despues de guardar->"+data_respuesta);
             console.log("Nombre del boton:"+data_respuesta.nombre_boton);
             $("#guardado_respuesta").fadeIn();
-            $("#boton4").fadeIn();
             $("#guardado_respuesta").html("<i>"+data_respuesta.mensaje_respuesta+"</i>");
-            $("#boton4").html(data_respuesta.nombre_boton);
+            botones_ejemplos();
           });
-    });    */
+    });*/
     
     //Una vez que se ha guardado la tabla, desde que el foco cambia en la página desaparece el mensaje de guardado
     $("#guardar").focusout(function()
@@ -141,22 +149,12 @@ $(document).ready(() => {
           fillTable,
           'json'
         );
-        //$("#input").css("float","left");
-        //$("#input").css("margin-left","70px");
-        //$(".output").css("float","left");
     });
-    /* botones para rellenar el textarea */
-    /*dump --> vuelca el contenido del fichero y recibe como argumento el nombre del fichero*/
-    
-    /*`${$(y).text()}.txt` --> texto ECMA6 (comillas)*/
-    
-    /*$('button.example').each( (_,y) => {
-      $(y).click( () => { dump(`${$(y).text()}.txt`); });
-    });*/
 
-    $('button.example').each( (_,y) => {
+    /*$('button.example').each( (_,y) => {
       $(y).click( () => { dump(`${$(y).text()}`); });
-    });
+    });*/
+    
     
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];

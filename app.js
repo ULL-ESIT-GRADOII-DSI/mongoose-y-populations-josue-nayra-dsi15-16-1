@@ -36,14 +36,14 @@ app.get('/csv', (request, response) => {
     response.send({ "rows": calculate(request.query.input) });
 });
 
-/*app.param('ejemplo', function (req, res, next, ejemplo) {  
+app.param('ejemplo', function (req, res, next, ejemplo) {  
   if (ejemplo.match(/^[a-z0-9_]*$/i)) { 
       req.ejemplo = ejemplo;
   } else { 
       next(new Error(`<${ejemplo}> does not match 'ejemplo' requirements`));
    }
   next();
-});*/
+});
 
 app.get('/cargar_datos',(request,response) => {
     //console.log("Cargar_datos => data: "+request.query.boton_name);
@@ -101,9 +101,13 @@ app.get('/buscar/:usuario',(request,response) => {
 app.get('/guardar_tabla/:ejemplo',(request, response) => { 
     console.log("Guardar tabla..."); 
     console.log("Datos: nombre_tabla->"+request.params.ejemplo);
-
+    console.log("Datos: contenido_tabla->"+request.query.input);
+    console.log("Datos: descripcion_tabla->"+request.query.descripcion)
+    console.log("Datos: usuario propietario->"+request.query.usuario);
+    const id = mongoose.Types.ObjectId(request.query.usuario);
+    console.log("Datos: id->"+id);
     //Comprobamos el número de registros en la base de datos
-    Tabla.find({},function(err, data) 
+    Tabla.find({_creator: id},function(err, data) 
     {
         if(err){
             console.error("Se ha producido un error->"+err);
@@ -113,31 +117,29 @@ app.get('/guardar_tabla/:ejemplo',(request, response) => {
             console.log("Nombre 3 --> "+data[3].nombre);
             Tabla.remove({nombre: data[3].nombre}).exec();
         }
-        let nueva_tabla = new Tabla({
+        let nueva_tabla = new Tabla(
+        {
             entrada_tabla: request.query.input,
             nombre: request.params.ejemplo,
-            descripcion: request.query.descripcion
+            descripcion: request.query.descripcion,
+            _creator: id
         });
-        let n_t = nueva_tabla.save(function(err){
-            if(err)
-            {
-                response.send({mensaje_respuesta: 'No se ha guardado correctamente', nombre_boton:""});
-                console.log(`Hubieron errores:\n${err}`); return err; 
-            }
-            else
-            {
-                response.send({mensaje_respuesta: 'Guardado con exito', nombre_boton: request.params.ejemplo});
-                console.log(`Saved: ${nueva_tabla}`);
-            }
-            
+        //Guardamos tabla en BD
+        nueva_tabla.save(function(err)
+        {
+           if(err) return console.log(err); 
+           console.log(`Saved: ${nueva_tabla}`);
+        }).then(()=>{
+            Tabla
+            .findOne({entrada_tabla: request.query.input,nombre:request.params.ejemplo,descripcion: request.query.descripcion, _creator: id})
+            .populate('_creator')
+            .exec(function(err,tabla){
+                if(err) return console.log(err);
+                console.log('Propietario de tabla: %s',tabla._creator);
+            }).then( () => {
+                response.send({contenido: data, usuario_propietario: id});
+            });
         });
-        
-        n_t.then(function(value) {
-            console.log(value); // Success!
-        }, function(reason) {
-            console.log(reason); // Error!
-        });
-        
     });
 });
 

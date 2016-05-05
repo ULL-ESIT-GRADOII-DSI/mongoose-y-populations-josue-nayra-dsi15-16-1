@@ -106,19 +106,21 @@ $(document).ready(() => {
     });
 
     /* Request Ajax para que se guarde la tabla */
-    /*$("#guardar").click( (event) => {
+    $("#guardar").click( (event) => {
         event.preventDefault();
         $.get("/guardar_tabla/"+$("#nombre_tabla").val(), 
-          { input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },data_respuesta =>
-          {
-            console.log("Respuesta del servidor despues de guardar->"+data_respuesta);
+          { usuario: user_actual,input: original.value, nombre: $("#nombre_tabla").val(), descripcion: $("#descripcion_tabla").val() },
+          botones_ejemplos,
+          'json'
+        );
+    });
+    /*        console.log("Respuesta del servidor despues de guardar->"+data_respuesta);
             console.log("Nombre del boton:"+data_respuesta.nombre_boton);
             $("#guardado_respuesta").fadeIn();
-            $("#boton4").fadeIn();
             $("#guardado_respuesta").html("<i>"+data_respuesta.mensaje_respuesta+"</i>");
-            $("#boton4").html(data_respuesta.nombre_boton);
+            botones_ejemplos();
           });
-    });    */
+    });*/
     
     //Una vez que se ha guardado la tabla, desde que el foco cambia en la página desaparece el mensaje de guardado
     $("#guardar").focusout(function()

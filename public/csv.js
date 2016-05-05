@@ -31,11 +31,11 @@ const fillTable = (data) => {
 };*/
 const dump = (boton_name) => {
     console.log("Ha hecho click en el boton:" + boton_name);
-    $.get("/cargar_datos/"+boton_name, { boton_name: boton_name }, respuesta =>
+    /*$.get("/cargar_datos/"+boton_name, { boton_name: boton_name }, respuesta =>
     {
        console.log("Respuesta:"+respuesta);
        $("#original").val(respuesta[0].entrada_tabla);
-    });
+    });*/
 }
 
 const handleFileSelect = (evt) => {

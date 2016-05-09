@@ -24,6 +24,7 @@
     "ejs": "*",
     "express": "~3.2.6",
     "express-ejs-layouts": "~1.1.0",
+    "gulp": "^3.9.1",
     "jquery": "*",
     "mongoose": "^4.4.12",
     "nodemon": "^1.9.2",

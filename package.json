@@ -26,6 +26,7 @@
     "express-ejs-layouts": "~1.1.0",
     "jquery": "*",
     "mongoose": "^4.4.12",
+    "nodemon": "^1.9.2",
     "underscore": "*",
     "util": "^0.10.3"
   },

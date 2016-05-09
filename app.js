@@ -91,7 +91,7 @@ app.get('/buscar/:usuario',(request,response) => {
                     {
                         console.log("Enviando dattos a csv.js => Tablas asociadas:"+data_tablas);    
                     }
-                    response.send({contenido: data_tablas, usuario_propietario: id, mensaje_respuesta: "Busqueda realizada correctamente."});
+                    response.send({contenido: data_tablas, usuario_propietario: id, mensaje_respuesta: "Busqueda realizada correctamente.", mensaje_guardado: " "});
                 });
             }
             else{
@@ -101,7 +101,7 @@ app.get('/buscar/:usuario',(request,response) => {
                 });
                 nuevo_usuario.save(function(err){
                    if(err) return console.log(err);
-                   response.send({contenido: "", usuario_propietario: nuevo_usuario._id, mensaje_respuesta: "Nuevo usuario creado."});
+                   response.send({contenido: " ", usuario_propietario: nuevo_usuario._id, mensaje_respuesta: "Nuevo usuario creado.", mensaje_guardado: " "});
                 }).then(() => {
                     console.log(`Saved: ${nuevo_usuario}`);
                 })
@@ -151,7 +151,14 @@ app.get('/guardar_tabla/:ejemplo',(request, response) => {
                 if(err) return console.log(err);
                 console.log('Propietario de tabla: %s',tabla._creator);
             }).then( () => {
-                response.send({contenido: data, usuario_propietario: id});
+                var nuevo;
+                Tabla.find({ _creator: id}, function(err, nueva_data)
+                {
+                    nuevo = nueva_data;
+                    console.log("Nuevas tablas:"+nueva_data);
+                    response.send({contenido: nuevo, usuario_propietario: id, mensaje_respuesta: " ", mensaje_guardado: "Guardado"});
+                });
+                
             });
         });
     });

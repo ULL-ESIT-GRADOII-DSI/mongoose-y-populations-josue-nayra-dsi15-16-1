@@ -41,6 +41,7 @@ const botones_ejemplos = (data) => {
     $(y).click( () => { dump(`${$(y).text()}`,user_actual); });
   });
   
+  $("#guardado_respuesta").html("<i>"+data.mensaje_guardado+"</i>");
   $("#mensaje_busqueda").html("<i>"+data.mensaje_respuesta+"</i>");
 }
 
@@ -123,13 +124,7 @@ $(document).ready(() => {
           'json'
         );
     });
-    /*        console.log("Respuesta del servidor despues de guardar->"+data_respuesta);
-            console.log("Nombre del boton:"+data_respuesta.nombre_boton);
-            $("#guardado_respuesta").fadeIn();
-            $("#guardado_respuesta").html("<i>"+data_respuesta.mensaje_respuesta+"</i>");
-            botones_ejemplos();
-          });
-    });*/
+
     
     //Una vez que se ha guardado la tabla, desde que el foco cambia en la página desaparece el mensaje de guardado
     $("#guardar").focusout(function()
